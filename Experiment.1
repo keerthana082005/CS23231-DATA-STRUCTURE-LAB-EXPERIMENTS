@@ -1,0 +1,225 @@
+Node *FindPrevious(Node *List, int x)
+
+{
+
+        Node *Position;
+
+        Position = List;
+
+        while(Position->Next != NULL && Position->Next->Element != x)
+
+                Position = Position->Next;
+
+        return Position;
+
+}
+
+Node *FindNext(Node *List, int x)
+
+{
+
+        Node *Position;
+
+        Position = Find(List, x);
+
+        return Position->Next;
+
+}
+
+void InsertBeg(Node *List, int e)
+
+{
+
+        Node *NewNode = malloc(sizeof(Node));
+
+        NewNode->Element = e;
+
+        if(IsEmpty(List))
+
+                NewNode->Next = NULL;
+
+        else
+
+                NewNode->Next = List->Next;
+
+        List->Next = NewNode;
+
+}
+
+void InsertLast(Node *List, int e)
+
+{
+
+        Node *NewNode = malloc(sizeof(Node));
+
+        Node *Position;
+
+        NewNode->Element = e;
+
+        NewNode->Next = NULL;
+
+        if(IsEmpty(List))
+
+                List->Next = NewNode;
+
+        else
+
+        {
+
+                Position = List;
+
+                while(Position->Next != NULL)
+
+                        Position = Position->Next;
+
+                Position->Next = NewNode;
+
+        }
+
+}
+
+void InsertMid(Node *List, int p, int e)
+
+{
+
+        Node *NewNode = malloc(sizeof(Node));
+
+        Node *Position;
+
+        Position = Find(List, p);
+
+        NewNode->Element = e;
+
+        NewNode->Next = Position->Next;
+
+        Position->Next = NewNode;
+
+}
+
+void DeleteBeg(Node *List)
+
+{
+
+        if(!IsEmpty(List))
+
+        {
+
+                Node *TempNode;
+
+                TempNode = List->Next;
+
+                List->Next = TempNode->Next;
+
+                printf("The deleted item is %d\n", TempNode->Element);
+
+                free(TempNode);
+
+        }
+
+        else
+
+                printf("List is empty...!\n");
+
+}
+
+void DeleteEnd(Node *List)
+
+{
+
+        if(!IsEmpty(List))
+
+        {
+
+                Node *Position;
+
+                Node *TempNode;
+
+                Position = List;
+
+                while(Position->Next->Next != NULL)
+
+                        Position = Position->Next;
+
+                TempNode = Position->Next;
+
+                Position->Next = NULL;
+
+                printf("The deleted item is %d\n", TempNode->Element);
+
+                free(TempNode);
+
+        }
+
+        else
+
+                printf("List is empty...!\n");
+
+}
+
+void DeleteMid(Node *List, int e)
+
+{
+
+        if(!IsEmpty(List))
+
+        {
+
+                Node *Position;
+
+                Node *TempNode;
+
+                Position = FindPrevious(List, e);
+
+                if(!IsLast(Position))
+
+                {
+
+                        TempNode = Position->Next;
+
+                        Position->Next = TempNode->Next;
+
+                        printf("The deleted item is %d\n", TempNode->Element);
+
+                        free(TempNode);
+
+                }
+
+        }
+
+        else
+
+        printf("List is empty...!\n");
+
+}
+
+void Traverse(Node *List)
+
+{
+
+        if(!IsEmpty(List))
+
+        {
+
+                Node *Position;
+
+                Position = List;
+
+                while(Position->Next != NULL)
+
+                {
+
+                        Position = Position->Next;
+
+                        printf("%d\t", Position->Element);
+
+                }
+
+                printf("\n");
+
+        }
+
+        else
+
+                printf("List is empty...!\n");
+
+}
